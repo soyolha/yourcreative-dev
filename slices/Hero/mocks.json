@@ -1,0 +1,24 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "mountain",
+				"type": "Text"
+			},
+			"subtitle": {
+				"__TYPE__": "FieldContent",
+				"value": "brass",
+				"type": "Text"
+			},
+			"par": {
+				"__TYPE__": "FieldContent",
+				"value": "twice",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

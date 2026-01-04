@@ -1,0 +1,25 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"heading": {
+				"__TYPE__": "FieldContent",
+				"value": "ship",
+				"type": "Text"
+			},
+			"description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ipsum consequat ex elit eiusmod cupidatat magna esse officia laboris mollit. Adipisicing qui nisi ea officia officia magna et."
+						}
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]
