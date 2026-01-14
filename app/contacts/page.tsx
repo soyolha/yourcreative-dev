@@ -33,7 +33,7 @@ export default function ContactPage() {
           className="mt-4 inline-flex w-fit items-center gap-2 text-slate-100 hover:text-yellow-400 transition"
         >
           Send
-          <span aria-hidden>↗</span>
+          <span aria-hidden className="text-current text-base leading-none">↗</span>
         </button>
       </form>
     </main>

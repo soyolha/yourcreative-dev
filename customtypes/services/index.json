@@ -1,7 +1,7 @@
 {
   "format": "page",
-  "id": "page",
-  "label": "Page",
+  "id": "services",
+  "label": "Services",
   "repeatable": true,
   "status": true,
   "json": {
@@ -18,15 +18,6 @@
         "config": {
           "choices": {
             "services": {
-              "type": "SharedSlice"
-            },
-            "content_index": {
-              "type": "SharedSlice"
-            },
-            "tech_list": {
-              "type": "SharedSlice"
-            },
-            "biography": {
               "type": "SharedSlice"
             }
           }
@@ -59,7 +50,6 @@
         },
         "type": "Image"
       }
-    },
-    "Project": {}
+    }
   }
 }

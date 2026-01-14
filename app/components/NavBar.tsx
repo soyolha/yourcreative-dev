@@ -23,7 +23,7 @@ function NameLogo({ name }: { name: KeyTextField }) {
       href="/"
       aria-label="Home page"
       className=" inline-flex text-[12px] mt-[5px] font-semibold tracking-tight
-       text-slate-900 "
+       text-slate-950 "
     >
       {name ?? "Home"}
     </Link>
@@ -51,16 +51,15 @@ function NavItemLink({
 
   const textClass =
     size === "lg"
-      ? "text-3xl font-bold text-slate-900"
+      ? "text-3xl font-semibold text-slate-950"
       : "text-sm font-medium text-slate-700";
-
-  const highlightBase =
-    "absolute inset-0 -z-10 h-full w-full translate-y-6 rounded-md bg-yellow-300 " +
-    "transition-transform duration-300 ease-in-out";
-
-  const highlightState = active
-    ? "translate-y-0"
-    : "group-hover:translate-y-0";
+ const highlightBase =
+  "absolute inset-x-0  z-0 h-full w-full translate-y-6 rounded-md bg-yellow-300 " +
+ "transition-transform duration-300 ease-in-out";
+  
+ const highlightState = active
+ ? "translate-y-0"
+ : "group-hover:translate-y-0";
 
   return (
     <PrismicNextLink
@@ -135,8 +134,9 @@ function DesktopMenu({
       </div>
     </div>
   );
-}
+};
 
+//
 function MobileMenu({
   items,
   pathname,
@@ -155,44 +155,63 @@ function MobileMenu({
   return (
     <div
       className={clsx(
-        "fixed inset-0 z-[60] transition-transform duration-300",
-        open ? "translate-x-0" : "translate-x-full"
+        "fixed inset-0 z-[60]",
+        open ? "pointer-events-auto" : "pointer-events-none"
       )}
       aria-hidden={!open}
     >
-     
-      <div className="absolute inset-0 bg-white" />
-
-      <button
-        aria-label="Close menu"
-        className="absolute right-4 top-4 z-10 p-2 text-3xl text-slate-900"
+      {/* overlay */}
+      <div
+        className={clsx(
+          "absolute inset-0 bg-black/25 backdrop-blur-[2px] transition-opacity duration-300",
+          open ? "opacity-100" : "opacity-0"
+        )}
         onClick={() => setOpen(false)}
-        type="button"
+      />
+
+      {/* panel */}
+      <div
+        className={clsx(
+          "absolute right-0 top-0 h-full w-full ",
+          "bg-white",
+          "transition-transform duration-300",
+          open ? "translate-x-0" : "translate-x-full"
+        )}
       >
-        <MdClose />
-      </button>
+        <button
+          aria-label="Close menu"
+          className="absolute right-4 top-4 z-10 p-2 text-3xl text-slate-950"
+          onClick={() => setOpen(false)}
+          type="button"
+        >
+          <MdClose />
+        </button>
 
-      <nav className="relative z-10 mt-20 px-6">
-        <ul className="flex flex-col gap-7">
-          {items.map((item, index) => (
-            <li key={`m-${index}`}>
-              <NavItemLink
-                item={item}
-                pathname={pathname}
-                onClick={() => setOpen(false)}
-                size="lg"
-              />
+        <nav className="mt-20 px-6">
+          <ul className="flex flex-col gap-7">
+            {items.map((item, index) => (
+              <li key={`m-${index}`}>
+                <NavItemLink
+                  item={item}
+                  pathname={pathname}
+                  onClick={() => setOpen(false)}
+                  size="lg"
+                />
+              </li>
+            ))}
+
+            <li className="mt-2">
+              <Button linkField={ctaLink} label={ctaLabel} />
             </li>
-          ))}
-
-          <li className="mt-2">
-            <Button linkField={ctaLink} label={ctaLabel} />
-          </li>
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 }
+
+//
+
 
 export default function NavBar({ settings }: NavBarProps) {
   const [open, setOpen] = useState(false);
@@ -201,7 +220,6 @@ export default function NavBar({ settings }: NavBarProps) {
   const items: NavItem[] = useMemo(() => {
     const base = (settings.data.nav_item ?? []) as NavItem[];
 
-   
     const hasContacts = base.some(
       (x) => String(x.label ?? "").toLowerCase().trim() === "contacts"
     );
@@ -226,6 +244,25 @@ export default function NavBar({ settings }: NavBarProps) {
 
     return [...base, contactsItem];
   }, [settings.data.nav_item]);
+
+  //
+const mobileItems: NavItem[] = useMemo(() => {
+  const hasHome = items.some(
+    (x) => String(x.label ?? "").toLowerCase().trim() === "home"
+  );
+
+  if (hasHome) return items;
+
+  return [
+    {
+      label: "Home",
+      link: { link_type: "Web", url: "/" },
+    },
+    ...items,
+  ];
+}, [items]);
+//
+
 return (
   <nav aria-label="Main navigation" className="relative mb-16 mb:mb-20 lg:mb-23 z-50">
  
@@ -259,8 +296,9 @@ return (
         </div>
       </div>
 
+
       <MobileMenu
-        items={items}
+        items={mobileItems}
         pathname={pathname}
         open={open}
         setOpen={setOpen}
