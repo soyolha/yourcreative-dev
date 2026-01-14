@@ -32,8 +32,8 @@ export default function ContactPage() {
           type="submit"
           className="mt-4 inline-flex w-fit items-center gap-2 text-slate-100 hover:text-yellow-400 transition"
         >
-          Send
-          <span aria-hidden className="text-current text-base leading-none">↗</span>
+          Send 
+         
         </button>
       </form>
     </main>
